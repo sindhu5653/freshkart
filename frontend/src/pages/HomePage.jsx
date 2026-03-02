@@ -27,7 +27,7 @@ const HomePage = () => {
     <div style={{ overflowX: 'hidden' }}>
       
       {/* ================= HERO SECTION ================= */}
-      <section style={{ padding: '50px 20px', background: '#20df76f8', color: 'white' }}>
+      <section style={{ padding: '50px 20px', background: '#10b981', color: 'white' }}>
         <div 
           style={{
             maxWidth: '1200px',
