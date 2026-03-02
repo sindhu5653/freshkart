@@ -13,7 +13,7 @@ const HomePage = () => {
     const fetchProducts = async () => {
       try {
         const { data } = await api.get('/products');
-        setProducts(data.products.slice(0, 4)); // Show only featured ones
+        setProducts(data.products.slice(0, 4));
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -24,90 +24,183 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <motion.div 
-            className="hero-content"
+    <div style={{ overflowX: 'hidden' }}>
+      
+      {/* ================= HERO SECTION ================= */}
+      <section style={{ padding: '50px 20px', background: '#20df76f8', color: 'white' }}>
+        <div 
+          style={{
+            maxWidth: '1200px',
+            margin: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '40px'
+          }}
+        >
+
+          {/* Left Content */}
+          <motion.div
+            style={{ flex: '1 1 450px' }}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1>Fresh Vegetables <br /> <span style={{ color: '#fbbf24' }}>Directly From Farm</span></h1>
-            <p>Get the highest quality organic vegetables delivered to your home within 24 hours. No middlemen, just fresh goodness.</p>
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <Link to="/shop" className="btn btn-primary">Shop Now</Link>
-              <Link to="/about" className="btn" style={{ border: '2px solid white', color: 'white' }}>Learn More</Link>
+            <h1 style={{ 
+              fontSize: 'clamp(2rem, 5vw, 3.5rem)', 
+              fontWeight: 'bold',
+              lineHeight: '1.2'
+            }}>
+              Fresh Vegetables <br />
+              <span style={{ color: '#fbbf24' }}>Directly From Farm</span>
+            </h1>
+
+            <p style={{ marginTop: '20px', fontSize: '1.1rem', maxWidth: '500px' }}>
+              Get the highest quality organic vegetables delivered to your home within 24 hours.
+              No middlemen, just fresh goodness.
+            </p>
+
+            <div style={{ 
+              marginTop: '30px',
+              display: 'flex',
+              gap: '20px',
+              flexWrap: 'wrap'
+            }}>
+              <Link to="/shop" className="btn btn-primary">
+                Shop Now
+              </Link>
+              <Link 
+                to="/about" 
+                style={{
+                  padding: '10px 20px',
+                  border: '2px solid white',
+                  borderRadius: '8px',
+                  color: 'white',
+                  textDecoration: 'none'
+                }}
+              >
+                Learn More
+              </Link>
             </div>
           </motion.div>
-          
-          <motion.div 
+
+          {/* Right Image */}
+          <motion.div
+            style={{ flex: '1 1 350px', display: 'flex', justifyContent: 'center' }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="hero-image"
           >
-            {/* I will use a placeholder or image generated later. For now, a stylish SVG or div */}
-            <div style={{ width: '450px', height: '450px', background: 'rgba(255,255,255,0.2)', borderRadius: '50%', backdropFilter: 'blur(20px)', position: 'relative' }}>
-               <img 
-                 src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                 alt="Fresh Veggies" 
-                 style={{ width: '120%', position: 'absolute', top: '10%', right: '-10%', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.3))' }}
-               />
+            <div style={{ 
+              width: '100%',
+              maxWidth: '400px',
+              aspectRatio: '1/1',
+              background: 'rgba(255,255,255,0.2)',
+              borderRadius: '50%',
+              backdropFilter: 'blur(20px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img 
+                src="https://images.unsplash.com/photo-1540420773420-3366772f4999"
+                alt="Fresh Veggies"
+                style={{ 
+                  width: '100%',
+                  filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.3))'
+                }}
+              />
             </div>
           </motion.div>
+
         </div>
       </section>
 
-      {/* Features Section */}
-      <section style={{ background: 'white' }}>
-        <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '40px' }}>
-            <div style={{ textAlign: 'center', maxWidth: '250px' }}>
-              <div style={{ background: '#ecfdf5', color: '#10b981', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 20px' }}>
-                <Truck size={30} />
+      {/* ================= FEATURES SECTION ================= */}
+      <section style={{ padding: '60px 20px', background: 'white' }}>
+        <div style={{ 
+          maxWidth: '1100px',
+          margin: 'auto',
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: '40px'
+        }}>
+          
+          {[ 
+            { icon: <Truck size={30} />, title: 'Fast Delivery', text: 'Free shipping on orders over $50. Delivered in 24h.', bg: '#ecfdf5', color: '#10b981' },
+            { icon: <ShieldCheck size={30} />, title: '100% Organic', text: 'Certified organic vegetables from local farmers.', bg: '#fef3c7', color: '#fbbf24' },
+            { icon: <Zap size={30} />, title: 'Flash Sales', text: 'Daily deals and discounts on seasonal produce.', bg: '#eff6ff', color: '#3b82f6' }
+          ].map((feature, index) => (
+            <div key={index} style={{ 
+              flex: '1 1 250px',
+              maxWidth: '300px',
+              textAlign: 'center'
+            }}>
+              <div style={{ 
+                background: feature.bg,
+                color: feature.color,
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                margin: '0 auto 20px'
+              }}>
+                {feature.icon}
               </div>
-              <h3>Fast Delivery</h3>
-              <p style={{ color: '#6b7280' }}>Free shipping on orders over $50. Delivered in 24h.</p>
+              <h3>{feature.title}</h3>
+              <p style={{ color: '#6b7280', marginTop: '10px' }}>{feature.text}</p>
             </div>
-            <div style={{ textAlign: 'center', maxWidth: '250px' }}>
-              <div style={{ background: '#fef3c7', color: '#fbbf24', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 20px' }}>
-                <ShieldCheck size={30} />
-              </div>
-              <h3>100% Organic</h3>
-              <p style={{ color: '#6b7280' }}>Certified organic vegetables from local farmers.</p>
-            </div>
-            <div style={{ textAlign: 'center', maxWidth: '250px' }}>
-              <div style={{ background: '#eff6ff', color: '#3b82f6', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 20px' }}>
-                <Zap size={30} />
-              </div>
-              <h3>Flash Sales</h3>
-              <p style={{ color: '#6b7280' }}>Daily deals and discounts on seasonal produce.</p>
-            </div>
-          </div>
+          ))}
+
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section>
-        <div className="container">
-          <div className="section-title">
-            <h2>Featured Products</h2>
-            <p>Check out our top-selling fresh vegetables this week.</p>
+      {/* ================= FEATURED PRODUCTS ================= */}
+      <section style={{ padding: '60px 20px' }}>
+        <div style={{ maxWidth: '1200px', margin: 'auto' }}>
+          
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 'bold' }}>
+              Featured Products
+            </h2>
+            <p style={{ color: '#6b7280', marginTop: '10px' }}>
+              Check out our top-selling fresh vegetables this week.
+            </p>
           </div>
+
           {loading ? (
             <p style={{ textAlign: 'center' }}>Loading products...</p>
           ) : (
             <>
-              <div className="product-grid">
+              <div style={{ 
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '30px'
+              }}>
                 {products.map((product) => (
                   <ProductCard key={product._id} product={product} />
                 ))}
               </div>
-              <div style={{ textAlign: 'center', marginTop: '50px' }}>
-                <Link to="/shop" className="btn btn-primary" style={{ background: '#1f2937', color: 'white' }}>
-                  View All Products <ArrowRight size={18} style={{ marginLeft: '10px', verticalAlign: 'middle' }} />
+
+              <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                <Link 
+                  to="/shop"
+                  style={{
+                    background: '#1f2937',
+                    color: 'white',
+                    padding: '12px 25px',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center'
+                  }}
+                >
+                  View All Products
+                  <ArrowRight size={18} style={{ marginLeft: '8px' }} />
                 </Link>
               </div>
             </>
@@ -115,27 +208,32 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Offers Banner */}
-      <section className="container">
+      {/* ================= OFFER BANNER ================= */}
+      <section style={{ padding: '40px 20px' }}>
         <div style={{ 
-          background: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images.unsplash.com/photo-1597362868482-48280effec78?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          height: '400px',
-          borderRadius: '24px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          color: 'white',
+          maxWidth: '1200px',
+          margin: 'auto',
+          borderRadius: '20px',
+          padding: '60px 20px',
           textAlign: 'center',
-          padding: '40px'
+          color: 'white',
+          background: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://images.unsplash.com/photo-1597362868482-48280effec78)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
         }}>
-          <h2 style={{ fontSize: '3rem', marginBottom: '20px' }}>Weekly Special Offer</h2>
-          <p style={{ fontSize: '1.2rem', marginBottom: '30px', maxWidth: '600px' }}>Get 30% off on all seasonal fruits and leafy greens this weekend. Use code: FRESH30</p>
-          <Link to="/shop" className="btn btn-primary">Grab Deal Now</Link>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', marginBottom: '20px' }}>
+            Weekly Special Offer
+          </h2>
+          <p style={{ maxWidth: '600px', margin: 'auto auto 30px' }}>
+            Get 30% off on all seasonal fruits and leafy greens this weekend.
+            Use code: FRESH30
+          </p>
+          <Link to="/shop" className="btn btn-primary">
+            Grab Deal Now
+          </Link>
         </div>
       </section>
+
     </div>
   );
 };
